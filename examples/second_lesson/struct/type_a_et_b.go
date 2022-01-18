@@ -17,4 +17,5 @@ func (d News) Report() {
 	fmt.Println("I am news: " + d.Name)
 }
 
+//别名
 type fakeNews = News
