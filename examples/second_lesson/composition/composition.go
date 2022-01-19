@@ -16,7 +16,6 @@ type Duck interface {
 	Swimming
 }
 
-
 type Base struct {
 	Name string
 }
@@ -29,7 +28,7 @@ type Concrete2 struct {
 	*Base
 }
 
-func (c Concrete1) SayHello() {
+func (c *Concrete1) SayHello() {
 	// c.Name 直接访问了Base的Name字段
 	fmt.Printf("I am base and my name is: %s \n", c.Name)
 	// 这样也是可以的

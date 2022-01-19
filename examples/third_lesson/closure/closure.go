@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+//闭包， 一个函数+ 上下文
 func main() {
 
 	i := 13

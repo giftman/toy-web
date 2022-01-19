@@ -10,14 +10,16 @@ type Set interface {
 	PutIfAbsent(key string) (old string, absent bool)
 }
 
-type S struct {
+type SetBase struct {
 	hash map[string]bool
 }
 
-func (s *S) Put(key string) {
+var _ Set = &SetBase{}
+
+func (s *SetBase) Put(key string) {
 	s.hash[key] = true
 }
-func (s *S) Keys() []string {
+func (s *SetBase) Keys() []string {
 	keys := []string{}
 	for k, _ := range s.hash {
 		keys = append(keys, k)
@@ -25,7 +27,7 @@ func (s *S) Keys() []string {
 	return keys
 }
 
-func (s *S) Contains(key string) bool {
+func (s *SetBase) Contains(key string) bool {
 	if _, ok := s.hash[key]; ok {
 		return true
 	} else {
@@ -33,13 +35,13 @@ func (s *S) Contains(key string) bool {
 	}
 }
 
-func (s *S) Remove(key string) {
+func (s *SetBase) Remove(key string) {
 	if _, ok := s.hash[key]; ok {
 		s.hash[key] = false
 	}
 }
 
-func (s *S) PutIfAbsent(key string) (old string, absent bool) {
+func (s *SetBase) PutIfAbsent(key string) (old string, absent bool) {
 	if _, ok := s.hash[key]; ok {
 		return key, false
 	} else {

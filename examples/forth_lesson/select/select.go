@@ -8,7 +8,7 @@ import (
 func main() {
 	// 这个不能在 main 函数运行，是因为运行起来，
 	// 所有的goroutine都被我们搞sleep了，直接就崩了
-	//Select()
+	Select()
 }
 
 func Select() {
@@ -24,12 +24,12 @@ func Select() {
 		time.Sleep(time.Second)
 		ch2 <- "msg from channel2"
 	}()
-
-	for {
+	//这里是执行了就一定会等待执行这么多次吗?
+	for i := 0; i < 2; i++ {
 		select {
-		case msg := <- ch1:
+		case msg := <-ch1:
 			fmt.Println(msg)
-		case msg := <- ch2:
+		case msg := <-ch2:
 			fmt.Println(msg)
 		}
 	}
